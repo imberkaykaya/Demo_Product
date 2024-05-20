@@ -2,6 +2,8 @@
 using BusinessLayer.FluentValidation;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo_Product.Controllers
@@ -22,8 +24,22 @@ namespace Demo_Product.Controllers
         [HttpPost]
         public IActionResult AddCustomer(Customer p)
         {
-            customerManager.TInsert(p);
-            return RedirectToAction("Index");
+            CusotmerValidator validationRules = new CusotmerValidator();
+            ValidationResult results = validationRules.Validate(p);
+            if (results.IsValid)
+            {
+                customerManager.TInsert(p);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
+            
         }
         public IActionResult DeleteCustomer(int id)
         {
