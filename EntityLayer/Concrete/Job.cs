@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace EntityLayer.Concrete
 {
-    public class Product
+    public class Job
     {
-        public int Id { get; set; }
+        public int JobID { get; set; }
         public string Name { get; set; }
-        public decimal Price { get; set; }
-        public int Stock { get; set; }
+        public List<Customer> Customers { get; set; }
     }
 }

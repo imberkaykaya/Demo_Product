@@ -5,20 +5,29 @@ using EntityLayer.Concrete;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Demo_Product.Controllers
 {
     public class CustomerController : Controller
     {
         CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+        JobManager jobManager = new JobManager(new EfJobDal());
         public IActionResult Index()
         {
-            var values = customerManager.TGetList();
+            var values = customerManager.GetCustomersListWithJob();
             return View(values);
         }
         [HttpGet]
         public IActionResult AddCustomer()
         {
+            List<SelectListItem> values = (from x in jobManager.TGetList()
+                                           select new SelectListItem
+                                           {
+                                               Text = x.Name,
+                                               Value = x.JobID.ToString()
+                                           }).ToList();
+            ViewBag.v = values;
             return View();
         }
         [HttpPost]
@@ -39,7 +48,7 @@ namespace Demo_Product.Controllers
                 }
             }
             return View();
-            
+
         }
         public IActionResult DeleteCustomer(int id)
         {
@@ -51,6 +60,13 @@ namespace Demo_Product.Controllers
         public IActionResult UpdateCustomer(int id)
         {
             var value = customerManager.TGetById(id);
+            List<SelectListItem> values = (from x in jobManager.TGetList()
+                                           select new SelectListItem
+                                           {
+                                               Text = x.Name,
+                                               Value = x.JobID.ToString()
+                                           }).ToList();
+            ViewBag.v = values;
             return View(value);
         }
         [HttpPost]
