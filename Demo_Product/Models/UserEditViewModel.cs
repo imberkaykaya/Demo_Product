@@ -2,7 +2,7 @@
 
 namespace Demo_Product.Models
 {
-    public class UserEditVM
+    public class UserEditViewModel
     {
         [Required(ErrorMessage = "Lütfen İsim Giriniz")]
         public string Name { get; set; }
@@ -13,7 +13,7 @@ namespace Demo_Product.Models
         [Required(ErrorMessage = "Lütfen Mail Adresi Giriniz")]
         public string Mail { get; set; }
 
-        [Required(ErrorMessage = "Lütfen Cinsiyet Seçiniz")]
+        [Required(ErrorMessage = "Lütfen Cinsiyet Giriniz")]
         public string Gender { get; set; }
 
         [Required(ErrorMessage = "Lütfen Şifre Giriniz")]

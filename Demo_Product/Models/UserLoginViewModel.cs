@@ -4,10 +4,10 @@ namespace Demo_Product.Models
 {
     public class UserLoginViewModel
     {
-        [Required(ErrorMessage ="Lütfen Kullanıcı Adınızı Giriniz")]
+        [Required(ErrorMessage ="Lütfen Kullanıcı Adını Giriniz")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage ="Lütfen  şifre giriniz")]
+        [Required(ErrorMessage = "Lütfen Parola Giriniz")]
         public string Password { get; set; }
     }
 }
